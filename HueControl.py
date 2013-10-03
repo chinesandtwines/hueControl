@@ -3,7 +3,8 @@ import requests         # submits http requests
 from time import sleep  # for future use
 from Tkinter import *
 from ttk import Frame, Button, Label, Style, Notebook
-import ttk
+import ttk, tkColorChooser
+from colorpy import colormodels
 
 myhash = "d9ffaca46d5990ec39501bcdf22ee7a1"
 appname = "dddd"
@@ -82,9 +83,16 @@ class hueApp(Frame):
 
     def create_light_tabs(self, nb):
         self.tabs=[]
+        self.button=[]
         for i in range(num_lights):
             frame = ttk.Frame(nb)
             nb.add(frame, text='Light '+str(i+1))
+            try:
+                self.button.append(Button(frame, text='Colour Select'+str(i+1),
+                                      command=lambda i=i: self.colour_select(i+1)))
+            except TypeError:
+                pass
+            self.button[i].grid(row=1, column=i)
 
     def centerWindow(self):
 
@@ -152,6 +160,50 @@ class hueApp(Frame):
         payload = json.dumps({"bri":bri_val})
         sethuehub = huehub + "/state"
         reply = requests.put(sethuehub, data=payload)
+
+    def colour_select(self, light_id):
+        print 'light_id:', light_id, type(light_id)
+
+        try:
+            (rgb, hx) = tkColorChooser.askcolor()
+            if (rgb, hx) != (None, None):
+                print '(rgb, hx):', rgb, hx
+
+                red = rgb[0]
+                green = rgb[1]
+                blue = rgb[2]
+
+                redScale = float(red) / 255.0 #rgb goes from 0-255, this changes it into the 0-1.0 that xy uses
+                greenScale = float(green) / 255.0
+                blueScale = float(blue) / 255.0
+                # Initialization function for conversion between CIE XYZ and linear RGB spaces
+                colormodels.init(
+                    phosphor_red=colormodels.xyz_color(0.64843, 0.33086),
+                    phosphor_green=colormodels.xyz_color(0.4091, 0.518),
+                    phosphor_blue=colormodels.xyz_color(0.167, 0.04))
+                xyz = colormodels.irgb_color(red, green, blue)
+                xyz = colormodels.xyz_from_rgb(xyz)
+                xyz = colormodels.xyz_normalize(xyz)
+                print xyz, '\n'
+                xy = [xyz[0], xyz[1]]
+                
+
+                #print 'rgb: ', red, green, blue
+                #global huehub
+                huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light_id)
+                reply = requests.get(huehub)
+                a=json.loads(reply.text)
+                #print bri_val
+                payload = json.dumps({"xy":xy})
+                sethuehub = huehub + "/state"
+                reply = requests.put(sethuehub, data=payload)
+            else:
+                print 'Warning: No RGB selection made\n'
+        except TypeError, e:
+            print 'Error closing ColorChooser: variable referenced before assignment\n', e, '\n'
+            pass
+
+        
 
 def main():
     root = Tk()

@@ -40,7 +40,8 @@ class hueApp(Frame):
 
         self.button=[]
         for i in range(0,num_lights):
-            self.button.append(Button(self, text='Colour Select'+str(i+1), command=lambda i=i: self.colour_select(i+1)))
+            self.button.append(Button(self, text='Colour Select'+str(i+1),
+                                      command=lambda i=i: self.colour_select(i+1)))
             #print i
             self.button[i].grid(row=1, column=i)
         
