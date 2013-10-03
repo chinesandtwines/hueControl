@@ -9,6 +9,8 @@ myhash = "d9ffaca46d5990ec39501bcdf22ee7a1"
 appname = "dddd"
 num_lights = 3
 
+#----------------------------------------------
+
 class hueApp(Frame):
 
     def __init__(self, parent):
