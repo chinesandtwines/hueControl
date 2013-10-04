@@ -3,7 +3,7 @@ import requests         # submits http requests
 from time import sleep  # for future use
 from Tkinter import *
 from ttk import Frame, Button, Label, Style, Notebook
-import ttk, tkColorChooser
+import ttk, tkColorChooser, warnings
 from colorpy import colormodels
 
 myhash = "d9ffaca46d5990ec39501bcdf22ee7a1"
@@ -166,9 +166,11 @@ class hueApp(Frame):
 
         try:
             (rgb, hx) = tkColorChooser.askcolor()
-            if (rgb, hx) != (None, None):
+            if (rgb, hx) == (None, None):
+                warnings.warn('ColorChooser Error: No RGB colour selected.')
+    
+            else:
                 print '(rgb, hx):', rgb, hx
-
                 red = rgb[0]
                 green = rgb[1]
                 blue = rgb[2]
@@ -197,8 +199,6 @@ class hueApp(Frame):
                 payload = json.dumps({"xy":xy})
                 sethuehub = huehub + "/state"
                 reply = requests.put(sethuehub, data=payload)
-            else:
-                print 'Warning: No RGB selection made\n'
         except TypeError, e:
             print 'Error closing ColorChooser: variable referenced before assignment\n', e, '\n'
             pass
