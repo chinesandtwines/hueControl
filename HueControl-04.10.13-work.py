@@ -110,12 +110,16 @@ class hueApp(Frame):
             self.refreshButton[i].grid(row=1, column=1, pady=4, padx=(4,0), sticky=W)
             
             #create Text widget to display light state data
+            huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(i+1)
+            reply = requests.get(huehub)
+            a=json.loads(reply.text)
+            
             self.dataDisplay.append(Text(frame, width=20, height=5))
-            self.dataDisplay[i].insert('1.0', 'Hue: '+'\n') #+str(a['state']['hue']
-            self.dataDisplay[i].insert('2.0', 'Brightness: '+'\n') #+str(a['state']['bri']
-            self.dataDisplay[i].insert('3.0', 'Saturation: '+'\n') #+str(a['state']['sat']
-            self.dataDisplay[i].insert('4.0', 'Colour Temp: '+'\n') #+str(a['state']['ct']
-            self.dataDisplay[i].insert('5.0', '(x, y): ') #+str(a['state']['xy']
+            self.dataDisplay[i].insert('1.0', 'Hue: '+str(a['state']['hue'])+'\n') #+str(a['state']['hue']
+            self.dataDisplay[i].insert('2.0', 'Brightness: '+str(a['state']['bri'])+'\n') #+str(a['state']['bri']
+            self.dataDisplay[i].insert('3.0', 'Saturation: '+str(a['state']['sat'])+'\n') #+str(a['state']['sat']
+            self.dataDisplay[i].insert('4.0', 'Colour Temp: '+str(a['state']['ct'])+'\n') #+str(a['state']['ct']
+            self.dataDisplay[i].insert('5.0', '(x, y): '+str(a['state']['xy'])) #+str(a['state']['xy']
             self.dataDisplay[i].grid(row=2, column=0, pady=4, padx=4, columnspan=2)
             self.dataDisplay[i].config(state='disabled')
 
@@ -167,46 +171,46 @@ class hueApp(Frame):
         bri_val = 150
         for i in range(num_lights):
             light = i+1
-            huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
-##            reply = requests.get(huehub)
-##            a=json.loads(reply.text)
-##            if a['state']['on'] == True:
-##                payload = json.dumps({"bri":bri_val})
-##                sethuehub = huehub + "/state"
-##                reply = requests.put(sethuehub, data=payload)
-##                self.scale[i].set(150) #reset slider
+            huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(light)
+            reply = requests.get(huehub)
+            a=json.loads(reply.text)
+            if a['state']['on'] == True:
+                payload = json.dumps({"bri":bri_val})
+                sethuehub = huehub + "/state"
+                reply = requests.put(sethuehub, data=payload)
+                self.scale[i].set(150) #reset slider
 
     def pwr_toggle(self,light_id):
         #print light_id
         light = light_id
         global huehub
-        huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
-##        reply= requests.get (huehub)
-##        a=json.loads(reply.text)
-##        
-##        if a['state']['on'] == True :
-##            print "%s was ON, now turning it off" % a['name']
-##            onoff = False
-##        else:
-##            print "%s was OFF, now turning it on" % a['name']
-##            onoff = True
-##
-##        # --- set new state of bulb
-##        payload= json.dumps({"on":onoff})
-##        sethuehub = huehub + "/state"
-##        reply= requests.put(sethuehub, data=payload)
+        huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(light)
+        reply= requests.get (huehub)
+        a=json.loads(reply.text)
+        
+        if a['state']['on'] == True :
+            print "%s was ON, now turning it off" % a['name']
+            onoff = False
+        else:
+            print "%s was OFF, now turning it on" % a['name']
+            onoff = True
+
+        # --- set new state of bulb
+        payload= json.dumps({"on":onoff})
+        sethuehub = huehub + "/state"
+        reply= requests.put(sethuehub, data=payload)
 
     def brightness_adj(self, arg, arg2):
         #print 'light_id = ' + str(arg2)
         #print 'light_value = ' + str(arg), '\n'
         light = int(arg2)
         bri_val = int(arg)
-        huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
-##        reply = requests.get(huehub)
-##        a=json.loads(reply.text)
-##        payload = json.dumps({"bri":bri_val})
-##        sethuehub = huehub + "/state"
-##        reply = requests.put(sethuehub, data=payload)
+        huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(light)
+        reply = requests.get(huehub)
+        a=json.loads(reply.text)
+        payload = json.dumps({"bri":bri_val})
+        sethuehub = huehub + "/state"
+        reply = requests.put(sethuehub, data=payload)
 
 
     #####----- Widget commands for create_light_tabs -----#####
@@ -241,12 +245,12 @@ class hueApp(Frame):
                 #print 'rgb: ', red, green, blue
                 #global huehub
                 huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light_id)
-##                reply = requests.get(huehub)
-##                a=json.loads(reply.text)
-##                #print bri_val
-##                payload = json.dumps({"xy":xy})
-##                sethuehub = huehub + "/state"
-##                reply = requests.put(sethuehub, data=payload)
+                reply = requests.get(huehub)
+                a=json.loads(reply.text)
+                #print bri_val
+                payload = json.dumps({"xy":xy})
+                sethuehub = huehub + "/state"
+                reply = requests.put(sethuehub, data=payload)
         except TypeError, e:
             print 'Error closing ColorChooser: variable referenced before assignment\n', e, '\n'
             pass
@@ -257,8 +261,8 @@ class hueApp(Frame):
         """
         huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light_id)
         print 'Fetching state data from hub'
-##        reply = requests.get(huehub)
-##        a=json.loads(reply.text)
+        reply = requests.get(huehub)
+        a=json.loads(reply.text)
 
     def onSelect(self, val):
         """
