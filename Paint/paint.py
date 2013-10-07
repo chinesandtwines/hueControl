@@ -2,7 +2,8 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 
 class MyPaintWidget(Widget):
-    pass
+    def on_touch_down(self, touch):
+        print(touch)
 
 class MyPaintApp(App):
     def build(self):
