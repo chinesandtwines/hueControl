@@ -1,13 +1,12 @@
-import kivy
-kivy.require('1.7.2')
-
 from kivy.app import App
-from kivy.uix.label import Label
+from kivy.uix.widget import Widget
 
-class MyApp(App):
+class PongGame(Widget):
+    pass
 
+class PongApp(App):
     def build(self):
-        return Label(text='Hello world')
+        return PongGame()
 
 if __name__ == '__main__':
-    MyApp().run()
+    PongApp().run()
