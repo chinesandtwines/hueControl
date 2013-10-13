@@ -1,0 +1,32 @@
+<hueLayout>:
+    #size_hint: .5, .5
+    #pos_hint: {'center_x': .5, 'center_y': .5}
+    #height: '200dp'
+    #width: '100dp'
+    pwr1_switch: pwr1_input
+    
+    TabbedPanel:
+        do_default_tab: False
+
+        TabbedPanelItem:
+            text: 'Master'
+            GridLayout:
+                cols: 3
+
+                Switch:
+                    id: pwr1_input
+                    active: root.callback(id, state)
+                    
+                
+                
+        TabbedPanelItem:
+            text: 'Light 1'
+            BoxLayout:
+                    
+        TabbedPanelItem:
+            text: 'Light 2'
+
+        TabbedPanelItem:
+            text: 'Light 3'
+            
+

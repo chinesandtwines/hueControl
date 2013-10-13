@@ -110,7 +110,7 @@ class hueApp(Frame):
             self.refreshButton[i].grid(row=1, column=1, pady=4, padx=(4,0), sticky=W)
             
             #create Text widget to display light state data
-            huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(i+1)
+            huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(i+1)
             reply = requests.get(huehub)
             a=json.loads(reply.text)
             
@@ -171,7 +171,7 @@ class hueApp(Frame):
         bri_val = 150
         for i in range(num_lights):
             light = i+1
-            huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(light)
+            huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
             reply = requests.get(huehub)
             a=json.loads(reply.text)
             if a['state']['on'] == True:
@@ -184,7 +184,7 @@ class hueApp(Frame):
         #print light_id
         light = light_id
         global huehub
-        huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(light)
+        huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
         reply= requests.get (huehub)
         a=json.loads(reply.text)
         
@@ -205,7 +205,7 @@ class hueApp(Frame):
         #print 'light_value = ' + str(arg), '\n'
         light = int(arg2)
         bri_val = int(arg)
-        huehub = "http://192.168.0.105/api/"+ myhash + "/lights/" + str(light)
+        huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
         reply = requests.get(huehub)
         a=json.loads(reply.text)
         payload = json.dumps({"bri":bri_val})
@@ -270,9 +270,10 @@ class hueApp(Frame):
         """
         sender = val.widget
         idx = sender.curselection()
+        global value
         value = sender.get(idx)
         self.var.set(value)
-        global value
+
         
 
     def cycleLogic(self, arg):
