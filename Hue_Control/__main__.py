@@ -1,6 +1,6 @@
 from kivy.config import Config
 Config.set('graphics', 'width', '600')
-Config.set('graphics', 'height', '300')
+Config.set('graphics', 'height', '400')
 Config.set('graphics', 'resizable', 0)
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -24,16 +24,19 @@ def findOccurences(s, ch):
     return [i for i, letter in enumerate(s) if letter == ch]
 
 char_list = findOccurences(web_pg, '\"')
-print char_list
 ip = web_pg[char_list[-2]+1:char_list[-1]]
-
-
 
 #####----- App Logic -----#####
 
 class hueLayout(BoxLayout):
     pwr1_switch = ObjectProperty()
-    switch_toggle = ObjectProperty()
+    pwr2_switch = ObjectProperty()
+    pwr3_switch = ObjectProperty()
+
+    bri1_label = ObjectProperty()
+    bri2_label = ObjectProperty()
+    bri3_label = ObjectProperty()    
+    
     bri1_slider = ObjectProperty()
     bri2_slider = ObjectProperty()
     bri3_slider = ObjectProperty()
@@ -64,14 +67,16 @@ class hueLayout(BoxLayout):
         sethuehub = huehub + "/state"
         reply= requests.put(sethuehub, data=payload)
 
+    #def get_value(
+
     def bri_adj(self, instance, value, light_id):
-##        if light_id == 1:    
-##            bri_val = int(self.bri1_slider.value)
-##        elif light_id == 2:
-##            bri_val = int(self.bri2_slider.value)
-##        elif light_id == 3:
-##            bri_val = int(self.bri3_slider.value)
         bri_val = int(value)
+        if light_id == 1:    
+            self.bri1_label.text = 'Brightness: ' + str(bri_val)
+        elif light_id == 2:
+            self.bri2_label.text = 'Brightness: ' + str(bri_val)
+        elif light_id == 3:
+            self.bri3_label.text = 'Brightness: ' + str(bri_val)
         huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
         reply = requests.get(huehub)
         a=json.loads(reply.text)
