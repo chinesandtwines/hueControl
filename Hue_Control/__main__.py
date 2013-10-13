@@ -33,13 +33,13 @@ class hueLayout(BoxLayout):
     pwr2_switch = ObjectProperty()
     pwr3_switch = ObjectProperty()
 
-    bri1_label = ObjectProperty()
-    bri2_label = ObjectProperty()
-    bri3_label = ObjectProperty()    
-    
-    bri1_slider = ObjectProperty()
-    bri2_slider = ObjectProperty()
-    bri3_slider = ObjectProperty()
+##    bri1_label = ObjectProperty()
+##    bri2_label = ObjectProperty()
+##    bri3_label = ObjectProperty()    
+##    
+##    bri1_slider = ObjectProperty()
+##    bri2_slider = ObjectProperty()
+##    bri3_slider = ObjectProperty()
 
     def get_state(self, light_id):
         huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
