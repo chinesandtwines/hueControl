@@ -11,6 +11,7 @@ import simplejson as json
 import requests
 from time import sleep
 from urllib2 import urlopen
+from colorpy import colormodels
 
 myhash = "d9ffaca46d5990ec39501bcdf22ee7a1"
 appname = "dddd"
@@ -40,6 +41,8 @@ class hueLayout(BoxLayout):
     bri1_slider = ObjectProperty()
     bri2_slider = ObjectProperty()
     bri3_slider = ObjectProperty()
+
+    color_picker1 = ObjectProperty()
 
     def get_state(self, light_id):
         huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
@@ -81,6 +84,29 @@ class hueLayout(BoxLayout):
         reply = requests.get(huehub)
         a=json.loads(reply.text)
         payload = json.dumps({"bri":bri_val})
+        sethuehub = huehub + "/state"
+        reply = requests.put(sethuehub, data=payload)
+
+    def color_adj(self, light_id):
+        rgba = self.color_picker1.wheel.color
+        red = rgba[0]
+        green = rgba[1]
+        blue = rgba[2]
+
+        colormodels.init(
+            phosphor_red=colormodels.xyz_color(0.64843, 0.33086),
+            phosphor_green=colormodels.xyz_color(0.4091, 0.518),
+            phosphor_blue=colormodels.xyz_color(0.167, 0.04))
+        xyz = colormodels.irgb_color(red, green, blue)
+        xyz = colormodels.xyz_from_rgb(xyz)
+        xyz = colormodels.xyz_normalize(xyz)
+        print xyz, '\n'
+        xy = [xyz[0], xyz[1]]
+        huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
+        reply = requests.get(huehub)
+        a=json.loads(reply.text)
+        #print bri_val
+        payload = json.dumps({"xy":xy})
         sethuehub = huehub + "/state"
         reply = requests.put(sethuehub, data=payload)
 

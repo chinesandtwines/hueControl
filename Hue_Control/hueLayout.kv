@@ -11,6 +11,8 @@
     bri2_slider: bri2_slider
     bri3_slider: bri3_slider
 
+    color_picker1: color_picker1
+
     
     TabbedPanel:
         do_default_tab: False
@@ -19,8 +21,6 @@
             text: 'Master'
             GridLayout:
                 cols: 3
-                #row_default_height: '40dp'
-                #row_force_default: True
                 rows_minimum: {0:40, 1:30, 2:200}
 
                 Switch:
@@ -28,34 +28,26 @@
                     active: root.get_state(light_id=1)
                     on_active: root.pwr_toggle(*args, light_id=1)
                     padding: [5,10,5,0]
-                    #height: '40dp'
                 Switch:
                     id: pwr2_switch
                     active: root.get_state(light_id=2)
                     on_active: root.pwr_toggle(*args, light_id=2)
                     padding: [5,10,5,0]
-                    #height: '40dp'
                 Switch:
                     id: pwr3_switch
                     active: root.get_state(light_id=3)
                     on_active: root.pwr_toggle(*args, light_id=3)
                     padding: [5,10,5,0]
-                    #height: '40dp'
 
                 Label:
                     id: bri1_label
                     text: 'Brightness: 150'
-                    #height: '40dp'
-
                 Label:
                     id: bri2_label
                     text: 'Brightness: 150'
-                    #height: '40dp'
-
                 Label:
                     id: bri3_label
                     text: 'Brightness: 150'
-                    #height: '40dp'
                     
                 Slider:
                     id: bri1_slider
@@ -65,8 +57,6 @@
                     step: 1
                     value: 150
                     on_value: root.bri_adj(*args, light_id=1)
-                    #height: '100dp'
-                    #size_hint_y: 0.5
                 Slider:
                     id: bri2_slider
                     min: 0
@@ -75,7 +65,6 @@
                     step: 1
                     value: 150
                     on_value: root.bri_adj(*args, light_id=2)
-                    #size_hint_y: 0.5
                 Slider:
                     id: bri3_slider
                     min: 0
@@ -83,22 +72,33 @@
                     orientation: 'vertical'
                     step: 1
                     value: 150
-                    on_value: root.bri_adj(*args, light_id=3)
-                    #size_hint_y: 0.5
-
-                    
-                
+                    on_value: root.bri_adj(*args, light_id=3)         
                 
         TabbedPanelItem:
             text: 'Light 1'
             BoxLayout:
+                padding: [5, 10, 5, 10]
                 ColorPicker:
-                    padding: '10dp'
+                    id: color_picker1
+                    padding: [10,10,10,10]
+                    on_color: root.color_adj(light_id=1)
                     
         TabbedPanelItem:
             text: 'Light 2'
+##            BoxLayout:
+##                padding: [5, 10, 5, 10]
+##                ColorPicker:
+##                    id: color_picker2
+##                    padding: [10,10,10,10]
+##                    on_color: root.color_adj(light_id=2)
 
         TabbedPanelItem:
             text: 'Light 3'
+##            BoxLayout:
+##                padding: [5, 10, 5, 10]
+##                ColorPicker:
+##                    id: color_picker3
+##                    padding: [10,10,10,10]
+##                    on_color: root.color_adj(light_id=3)
             
 
