@@ -3,13 +3,13 @@
     pwr2_switch: pwr2_switch
     pwr3_switch: pwr3_switch
 
-##    bri1_label: bri1_label
-##    bri2_label: bri2_label
-##    bri3_label: bri3_label
-##    
-##    bri1_slider: bri1_slider
-##    bri2_slider: bri2_slider
-##    bri3_slider: bri3_slider
+    bri1_label: bri1_label
+    bri2_label: bri2_label
+    bri3_label: bri3_label
+    
+    bri1_slider: bri1_slider
+    bri2_slider: bri2_slider
+    bri3_slider: bri3_slider
 
     
     TabbedPanel:
@@ -19,75 +19,72 @@
             text: 'Master'
             GridLayout:
                 cols: 3
-                row_default_height: '40dp'
+                #row_default_height: '40dp'
                 #row_force_default: True
+                rows_minimum: {0:40, 1:30, 2:200}
 
-                for i in range(3):
-                    Switch:
-                        id: 'pwr'+str(i+1)+'_switch'
-                        active: root.get_state(light_id=i+1)
-                        on_active: root.pwr_toggle(*args, light_id=i+1)
+                Switch:
+                    id: pwr1_switch
+                    active: root.get_state(light_id=1)
+                    on_active: root.pwr_toggle(*args, light_id=1)
+                    padding: [5,10,5,0]
+                    #height: '40dp'
+                Switch:
+                    id: pwr2_switch
+                    active: root.get_state(light_id=2)
+                    on_active: root.pwr_toggle(*args, light_id=2)
+                    padding: [5,10,5,0]
+                    #height: '40dp'
+                Switch:
+                    id: pwr3_switch
+                    active: root.get_state(light_id=3)
+                    on_active: root.pwr_toggle(*args, light_id=3)
+                    padding: [5,10,5,0]
+                    #height: '40dp'
 
-##                Switch:
-##                    id: pwr1_switch
-##                    active: root.get_state(light_id=1)
-##                    on_active: root.pwr_toggle(*args, light_id=1)
-##                    padding: [0,0,0,0]
-##                    #height: '40dp'
-##                Switch:
-##                    id: pwr2_switch
-##                    active: root.get_state(light_id=2)
-##                    on_active: root.pwr_toggle(*args, light_id=2)
-##                    padding: [0,0,0,0]
-##                    #height: '40dp'
-##                Switch:
-##                    id: pwr3_switch
-##                    active: root.get_state(light_id=3)
-##                    on_active: root.pwr_toggle(*args, light_id=3)
-##                    padding: [0,0,0,0]
-##                    #height: '40dp'
-##
-##                Label:
-##                    id: bri1_label
-##                    text: 'Brightness: 150'
-##                    height: '40dp'
-##
-##                Label:
-##                    id: bri2_label
-##                    text: 'Brightness: 150'
-##                    height: '40dp'
-##
-##                Label:
-##                    id: bri3_label
-##                    text: 'Brightness: 150'
-##                    height: '40dp'
-##                    
-##                Slider:
-##                    id: bri1_slider
-##                    min: 0
-##                    max: 255
-##                    orientation: 'vertical'
-##                    step: 1
-##                    value: 150
-##                    on_value: root.bri_adj(*args, light_id=1)
-##                    height: '100dp'
-##
-##                Slider:
-##                    id: bri2_slider
-##                    min: 0
-##                    max: 255
-##                    orientation: 'vertical'
-##                    step: 1
-##                    value: 150
-##                    on_value: root.bri_adj(*args, light_id=2)
-##                Slider:
-##                    id: bri3_slider
-##                    min: 0
-##                    max: 255
-##                    orientation: 'vertical'
-##                    step: 1
-##                    value: 150
-##                    on_value: root.bri_adj(*args, light_id=3)
+                Label:
+                    id: bri1_label
+                    text: 'Brightness: 150'
+                    #height: '40dp'
+
+                Label:
+                    id: bri2_label
+                    text: 'Brightness: 150'
+                    #height: '40dp'
+
+                Label:
+                    id: bri3_label
+                    text: 'Brightness: 150'
+                    #height: '40dp'
+                    
+                Slider:
+                    id: bri1_slider
+                    min: 0
+                    max: 255
+                    orientation: 'vertical'
+                    step: 1
+                    value: 150
+                    on_value: root.bri_adj(*args, light_id=1)
+                    #height: '100dp'
+                    #size_hint_y: 0.5
+                Slider:
+                    id: bri2_slider
+                    min: 0
+                    max: 255
+                    orientation: 'vertical'
+                    step: 1
+                    value: 150
+                    on_value: root.bri_adj(*args, light_id=2)
+                    #size_hint_y: 0.5
+                Slider:
+                    id: bri3_slider
+                    min: 0
+                    max: 255
+                    orientation: 'vertical'
+                    step: 1
+                    value: 150
+                    on_value: root.bri_adj(*args, light_id=3)
+                    #size_hint_y: 0.5
 
                     
                 
