@@ -1,5 +1,5 @@
 from kivy.config import Config
-Config.set('graphics', 'width', '600')
+Config.set('graphics', 'width', '700')
 Config.set('graphics', 'height', '400')
 Config.set('graphics', 'resizable', 0)
 from kivy.app import App
@@ -43,6 +43,26 @@ class hueLayout(BoxLayout):
     bri3_slider = ObjectProperty()
 
     color_picker1 = ObjectProperty()
+    color_picker2 = ObjectProperty()
+    color_picker3 = ObjectProperty()
+
+    hue_label1 = ObjectProperty()
+    bri_label1 = ObjectProperty()
+    sat_label1 = ObjectProperty()
+    ct_label1 = ObjectProperty()
+    xy_label1 = ObjectProperty()
+
+    hue_label2 = ObjectProperty()
+    bri_label2 = ObjectProperty()
+    sat_label2 = ObjectProperty()
+    ct_label2 = ObjectProperty()
+    xy_label2 = ObjectProperty()
+
+    hue_label3 = ObjectProperty()
+    bri_label3 = ObjectProperty()
+    sat_label3 = ObjectProperty()
+    ct_label3 = ObjectProperty()
+    xy_label3 = ObjectProperty()
 
     def get_state(self, light_id):
         huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
@@ -88,7 +108,12 @@ class hueLayout(BoxLayout):
         reply = requests.put(sethuehub, data=payload)
 
     def color_adj(self, light_id):
-        rgba = self.color_picker1.wheel.color
+        if light_id == 1:    
+            rgba = self.color_picker1.wheel.color
+        elif light_id == 2:
+            rgba = self.color_picker2.wheel.color
+        elif light_id == 3:
+            rgba = self.color_picker2.wheel.color
         red = rgba[0]
         green = rgba[1]
         blue = rgba[2]
@@ -100,7 +125,7 @@ class hueLayout(BoxLayout):
         xyz = colormodels.irgb_color(red, green, blue)
         xyz = colormodels.xyz_from_rgb(xyz)
         xyz = colormodels.xyz_normalize(xyz)
-        print xyz, '\n'
+        #print xyz, '\n'
         xy = [xyz[0], xyz[1]]
         huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
         reply = requests.get(huehub)
@@ -109,6 +134,31 @@ class hueLayout(BoxLayout):
         payload = json.dumps({"xy":xy})
         sethuehub = huehub + "/state"
         reply = requests.put(sethuehub, data=payload)
+
+        #Update hue data printout
+        reply= requests.get(huehub)
+        a=json.loads(reply.text)
+
+        if light_id == 1:    
+            self.hue_label1.text = 'Hue :'+str(a['state']['hue'])
+            self.bri_label1.text = 'Brightness :'+str(a['state']['bri'])
+            self.sat_label1.text = 'Saturation :'+str(a['state']['sat'])
+            self.ct_label1.text = 'Colour Temp :'+str(a['state']['ct'])
+            self.xy_label1.text = '(x, y) :'+str(a['state']['xy'])
+        elif light_id == 2:
+            self.hue_label2.text = 'Hue :'+str(a['state']['hue'])
+            self.bri_label2.text = 'Brightness :'+str(a['state']['bri'])
+            self.sat_label2.text = 'Saturation :'+str(a['state']['sat'])
+            self.ct_label2.text = 'Colour Temp :'+str(a['state']['ct'])
+            self.xy_label2.text = '(x, y) :'+str(a['state']['xy'])
+        elif light_id == 3:
+            self.hue_label3.text = 'Hue :'+str(a['state']['hue'])
+            self.bri_label3.text = 'Brightness :'+str(a['state']['bri'])
+            self.sat_label3.text = 'Saturation :'+str(a['state']['sat'])
+            self.ct_label3.text = 'Colour Temp :'+str(a['state']['ct'])
+            self.xy_label3.text = '(x, y) :'+str(a['state']['xy'])
+        
+        
 
 class HueController(App):
     def build(self):

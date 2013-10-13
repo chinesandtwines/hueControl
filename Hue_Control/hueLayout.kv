@@ -12,6 +12,26 @@
     bri3_slider: bri3_slider
 
     color_picker1: color_picker1
+    color_picker2: color_picker2
+    color_picker3: color_picker3
+
+    hue_label1: hue_label1
+    bri_label1: bri_label1
+    sat_label1: sat_label1
+    ct_label1: ct_label1
+    xy_label1: xy_label1
+
+    hue_label2: hue_label2
+    bri_label2: bri_label2
+    sat_label2: sat_label2
+    ct_label2: ct_label2
+    xy_label2: xy_label2
+
+    hue_label3: hue_label3
+    bri_label3: bri_label3
+    sat_label3: sat_label3
+    ct_label3: ct_label3
+    xy_label3: xy_label3
 
     
     TabbedPanel:
@@ -77,28 +97,89 @@
         TabbedPanelItem:
             text: 'Light 1'
             BoxLayout:
+                orientation: 'horizontal'
                 padding: [5, 10, 5, 10]
                 ColorPicker:
                     id: color_picker1
                     padding: [10,10,10,10]
                     on_color: root.color_adj(light_id=1)
+                    size_hint_x: 0.7
+                BoxLayout:
+                    size_hint_x: 0.3
+                    orientation: 'vertical'
+                    padding: [5, 10, 5, 10]
+                    Label:
+                        id: hue_label1
+                        text: 'Hue :'
+                    Label:
+                        id: bri_label1
+                        text: 'Brightness :'
+                    Label:
+                        id: sat_label1
+                        text: 'Saturation :'
+                    Label:
+                        id: ct_label1
+                        text: 'Colour Temp :'
+                    Label:
+                        id: xy_label1
+                        text: '(x, y) :'
                     
         TabbedPanelItem:
             text: 'Light 2'
-##            BoxLayout:
-##                padding: [5, 10, 5, 10]
-##                ColorPicker:
-##                    id: color_picker2
-##                    padding: [10,10,10,10]
-##                    on_color: root.color_adj(light_id=2)
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [5, 10, 5, 10]
+                ColorPicker:
+                    id: color_picker2
+                    padding: [10,10,10,10]
+                    on_color: root.color_adj(light_id=2)
+                BoxLayout:
+                    size_hint_x: 0.3
+                    orientation: 'vertical'
+                    padding: [5, 10, 5, 10]
+                    Label:
+                        id: hue_label2
+                        text: 'Hue :'
+                    Label:
+                        id: bri_label2
+                        text: 'Brightness :'
+                    Label:
+                        id: sat_label2
+                        text: 'Saturation :'
+                    Label:
+                        id: ct_label2
+                        text: 'Colour Temp :'
+                    Label:
+                        id: xy_label2
+                        text: '(x, y) :'
 
         TabbedPanelItem:
             text: 'Light 3'
-##            BoxLayout:
-##                padding: [5, 10, 5, 10]
-##                ColorPicker:
-##                    id: color_picker3
-##                    padding: [10,10,10,10]
-##                    on_color: root.color_adj(light_id=3)
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [5, 10, 5, 10]
+                ColorPicker:
+                    id: color_picker3
+                    padding: [10,10,10,10]
+                    on_color: root.color_adj(light_id=3)
+                BoxLayout:
+                    size_hint_x: 0.3
+                    orientation: 'vertical'
+                    padding: [5, 10, 5, 10]
+                    Label:
+                        id: hue_label3
+                        text: 'Hue :'
+                    Label:
+                        id: bri_label3
+                        text: 'Brightness :'
+                    Label:
+                        id: sat_label3
+                        text: 'Saturation :'
+                    Label:
+                        id: ct_label3
+                        text: 'Colour Temp :'
+                    Label:
+                        id: xy_label3
+                        text: '(x, y) :'
             
 
