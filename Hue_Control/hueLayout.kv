@@ -1,9 +1,11 @@
 <hueLayout>:
-    #size_hint: .5, .5
-    #pos_hint: {'center_x': .5, 'center_y': .5}
-    #height: '200dp'
-    #width: '100dp'
-    pwr1_switch: pwr1_input
+    pwr1_switch: pwr1_switch
+    pwr2_switch: pwr2_switch
+    pwr3_switch: pwr3_switch
+    bri1_slider: bri1_slider
+    bri2_slider: bri2_slider
+    bri3_slider: bri3_slider
+
     
     TabbedPanel:
         do_default_tab: False
@@ -14,8 +16,43 @@
                 cols: 3
 
                 Switch:
-                    id: pwr1_input
-                    active: root.callback(id, state)
+                    id: pwr1_switch
+                    active: root.get_state(light_id=1)
+                    on_active: root.pwr_toggle(*args, light_id=1)
+                Switch:
+                    id: pwr2_switch
+                    active: root.get_state(light_id=2)
+                    on_active: root.pwr_toggle(*args, light_id=2)
+                Switch:
+                    id: pwr3_switch
+                    active: root.get_state(light_id=3)
+                    on_active: root.pwr_toggle(*args, light_id=3)
+                    
+                Slider:
+                    id: bri1_slider
+                    min: 0
+                    max: 255
+                    orientation: 'vertical'
+                    step: 1
+                    value: 150
+                    on_value: root.bri_adj(*args, light_id=1)
+                Slider:
+                    id: bri2_slider
+                    min: 0
+                    max: 255
+                    orientation: 'vertical'
+                    step: 1
+                    value: 150
+                    on_value: root.bri_adj(*args, light_id=2)
+                Slider:
+                    id: bri3_slider
+                    min: 0
+                    max: 255
+                    orientation: 'vertical'
+                    step: 1
+                    value: 150
+                    on_value: root.bri_adj(*args, light_id=3)
+
                     
                 
                 
