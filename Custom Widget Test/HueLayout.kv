@@ -4,19 +4,37 @@
 ##        size: 870/2,972/2
 ##        on_touch_down: root.on_touch_down()
 
+##<ColorLoopWidget>:
+##    Ellipse:
+##        pos: (touch.x-5, touch.y-5)
+##        size: 10,10
+
 <HueLayout>:
     colorloopwidget: colorloopwidget
+    xlabel: xlabel
+    ylabel: ylabel
     
     BoxLayout:
         size: 1000, 500
         orientation: 'horizontal'
+        FloatLayout:
+            ColorLoopWidget:
+                xlabel: xlabel
+                ylabel: ylabel
+                id: colorloopwidget
+                size: 500, 500
+##            HueControl:
 
-        ColorLoopWidget:
-            id: colorloopwidget
-            size: 500, 500
-##            Color:
-##                rgba: 0, 1, 0, 1
-
-        Button:
-            text: 'Clear'
-            on_release: root.clear_canvas()
+        BoxLayout:
+            orientation: 'vertical'
+            Button:
+                text: 'Clear'
+                on_release: root.clear_canvas()
+            Label:
+                id: xlabel
+                text: 'x: '
+                size_hint_y: 0.2
+            Label:
+                id: ylabel
+                text: 'y: '
+                size_hint_y: 0.2

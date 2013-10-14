@@ -12,22 +12,28 @@ from kivy.graphics import Color, Ellipse, Line
 Builder.load_file('hueLayout.kv')
 
 class ColorLoopWidget(Widget):
-    
+    xlabel = ObjectProperty
+    ylabel = ObjectProperty
     def on_touch_down(self, touch):
         with self.canvas:
             self.canvas.clear()
-##            Color(1,1,1,1)
             d = 10
             Ellipse(pos=(touch.x - d/2, touch.y - d/2), size=(d,d))
             touch.ud['line'] = Line(points=(touch.x, touch.y))
-
-    def on_touch_move(self, touch):
-        touch.ud['line'].points += [touch.x, touch.y]
-
-    
+            self.xlabel.text = 'x: '+str(touch.x)
+            self.ylabel.text = 'y: '+str(touch.y)    
 
 class HueLayout(Widget):
-    colorloopwidget = ObjectProperty
+    colorloopwidget = ObjectProperty()
+    xlabel = ObjectProperty()
+    ylabel = ObjectProperty()
+
+##    def on_touch_down():
+##        ColorLoopWidget.on_touch_down()
+##
+##    def on_touch_move():
+##        ColorLoopWidget.on_touch_move()
+    
     def clear_canvas(self):
         self.colorloopwidget.canvas.clear()
     
