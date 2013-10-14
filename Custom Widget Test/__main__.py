@@ -15,7 +15,7 @@ class ColorLoopWidget(Widget):
     
     def on_touch_down(self, touch):
         with self.canvas:
-            self.clear_widgets()
+            self.canvas.clear()
 ##            Color(1,1,1,1)
             d = 10
             Ellipse(pos=(touch.x - d/2, touch.y - d/2), size=(d,d))
