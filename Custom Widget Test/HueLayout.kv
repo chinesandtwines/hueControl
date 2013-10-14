@@ -1,0 +1,31 @@
+
+<HueControl>:
+    Image:
+        source: 'cie_xyz.png'
+        pos: self.center_x-250,0
+        size: self.width, self.height
+##    canvas:
+##        Rectangle:
+##            pos: self.center_x-250,0
+##            size: self.width, self.height
+            
+
+<HueLayout>:
+    BoxLayout:
+        size: 1000, 500
+        orientation: 'horizontal'
+        FloatLayout:
+            size: 500,500
+            BoxLayout:
+                pos: 0,0
+                size_hint: 1,1
+                orientation: 'vertical'
+                Button:
+                    text: 'hi'
+                Button:
+                    text: 'bye'
+        Button:
+            text: 'right'
+##        HueControl:
+##            
+##            padding: 10,10,10,10

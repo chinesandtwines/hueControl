@@ -1,4 +1,14 @@
+<ColourLoop>:
+    size: 200,200
+    canvas:
+        Color:
+            rgba:0,0,0,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
 <hueLayout>:
+    colour_loop: colour_loop 
     pwr1_switch: pwr1_switch
     pwr2_switch: pwr2_switch
     pwr3_switch: pwr3_switch
@@ -123,6 +133,9 @@
                     Label:
                         id: xy_label1
                         text: '(x, y) :'
+
+                ColourLoop:
+                    id: colour_loop                        
                     
         TabbedPanelItem:
             text: 'Light 2'
