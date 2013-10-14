@@ -1,39 +1,11 @@
-<DataPoint>:
-    #size: 10,10
-    canvas:
-        Color:
-            rgb: 1, 1, 1, 1
-        Ellipse:
-            size: 10,10
-            pos: 112-5, 60-5
-            
-##        Ellipse:
-##            id: point2
-##            pos: 61, 231
-##            size: 10,10
-##        Ellipse:
-##            id: point3
-##            pos: 66, 422
-##            size: 10,10
-##        Bezier:
-##            id: bezier1
-##            points: 112, 60, 61, 231, 66, 422
-##            segments: 360
-        
-
-<HueControl>:
-    Image:
-        source: 'cie_xyz_clear.png'
-        size: 870/2,972/2
-        on_touch_down: root.on_touch_down()
+##<HueControl>:
+##    Image:
+##        source: 'cie_xyz_clear.png'
+##        size: 870/2,972/2
+##        on_touch_down: root.on_touch_down()
 
 <HueLayout>:
     colorloopwidget: colorloopwidget
-    #cie_chart: cie_chart
-    #point1: point1
-##    point2: point2
-##    point3: point3
-##    bezier1: bezier1
     
     BoxLayout:
         size: 1000, 500
@@ -42,17 +14,9 @@
         ColorLoopWidget:
             id: colorloopwidget
             size: 500, 500
-        
-##        FloatLayout:
-##            size: 500, 500
-##            
-##            HueControl:
-##                id: cie_chart
-##                
-##                
-##            DataPoint:
-##                id: point1 
-##                on_touch: self.on_touch_down()
+##            Color:
+##                rgba: 0, 1, 0, 1
 
         Button:
-            text: 'right'
+            text: 'Clear'
+            on_release: root.clear_canvas()
