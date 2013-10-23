@@ -8,8 +8,12 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.graphics import Color, Ellipse, Line
+from kivy.uix.image import Image
 
 Builder.load_file('hueLayout.kv')
+
+class cieBackground(Image):
+    pass
 
 class ColorLoopWidget(Widget):
     xlabel = ObjectProperty

@@ -14,11 +14,11 @@ r = 1.29822413
 angle_init = 65.66
 arc_sweep = 35
 increment = 0
-period = 30
+period = 60
 sleep_time = period/arc_sweep
 
 light = 1
-huehub = "http://192.168.0.101/api/"+ myhash + "/lights/" + str(light)
+huehub = "http://192.168.0.102/api/"+ myhash + "/lights/" + str(light)
 reply = requests.get(huehub)
 huedata=json.loads(reply.text)
 payload = json.dumps({"xy":[0.229, 0.0518]})
@@ -53,7 +53,7 @@ if s == 's':
         
 
         light = 1
-        huehub = "http://192.168.0.101/api/"+ myhash + "/lights/" + str(light)
+        huehub = "http://192.168.0.102/api/"+ myhash + "/lights/" + str(light)
         reply = requests.get(huehub)
         huedata=json.loads(reply.text)
         payload = json.dumps({"xy":xy, "transitiontime":1})

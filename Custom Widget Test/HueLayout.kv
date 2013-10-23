@@ -1,13 +1,13 @@
-##<HueControl>:
-##    Image:
-##        source: 'cie_xyz_clear.png'
-##        size: 870/2,972/2
+<cieBackground>:
+    canvas:
+        Color:
+            rgba: 0,0,0,1
+        Rectangle:
+            size: 500, 500
+    Image:
+        source: 'cie_xyz_clear.png'
+        size: 870/2,972/2
 ##        on_touch_down: root.on_touch_down()
-
-##<ColorLoopWidget>:
-##    Ellipse:
-##        pos: (touch.x-5, touch.y-5)
-##        size: 10,10
 
 <HueLayout>:
     colorloopwidget: colorloopwidget
@@ -23,7 +23,7 @@
                 ylabel: ylabel
                 id: colorloopwidget
                 size: 500, 500
-##            HueControl:
+            cieBackground:
 
         BoxLayout:
             orientation: 'vertical'
