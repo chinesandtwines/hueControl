@@ -27,6 +27,9 @@ def findOccurences(s, ch):
 char_list = findOccurences(web_pg, '\"')
 ip = web_pg[char_list[-2]+1:char_list[-1]]
 
+
+    
+
 #####----- App Logic -----#####
 
 class hueLayout(BoxLayout):
@@ -64,6 +67,43 @@ class hueLayout(BoxLayout):
     ct_label3 = ObjectProperty()
     xy_label3 = ObjectProperty()
 
+    light1_label = ObjectProperty()
+    light2_label = ObjectProperty()
+    light3_label = ObjectProperty()
+
+    def init_lights(self):    
+        for light_id in range(1,4):
+            #print light_id
+            if light_id == 1:
+                huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
+                xy = (0.167, 0.04)
+                payload = json.dumps({"xy":xy})
+                sethuehub = huehub + "/state"
+                reply = requests.put(sethuehub, data=payload)
+                reply = requests.get(huehub)
+                a=json.loads(reply.text)
+                self.light1_label.text = a['name']
+            
+            if light_id == 2:
+                huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
+                xy = (0.167, 0.04)
+                payload = json.dumps({"xy":xy})
+                sethuehub = huehub + "/state"
+                reply = requests.put(sethuehub, data=payload)
+                reply = requests.get(huehub)
+                a=json.loads(reply.text)
+                self.light2_label.text = a['name']
+              
+            if light_id == 3:
+                huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
+                xy = (0.167, 0.04)
+                payload = json.dumps({"xy":xy})
+                sethuehub = huehub + "/state"
+                reply = requests.put(sethuehub, data=payload)
+                reply = requests.get(huehub)
+                a=json.loads(reply.text)
+                self.light3_label.text = a['name']            
+
     def get_state(self, light_id):
         huehub = 'http://' + ip + '/api/'+ myhash + "/lights/" + str(light_id)
         reply= requests.get (huehub)
@@ -89,8 +129,6 @@ class hueLayout(BoxLayout):
         payload= json.dumps({"on":onoff})
         sethuehub = huehub + "/state"
         reply= requests.put(sethuehub, data=payload)
-
-    #def get_value(
 
     def bri_adj(self, instance, value, light_id):
         bri_val = int(value)
@@ -161,12 +199,15 @@ class hueLayout(BoxLayout):
         
 
 class HueController(App):
+              
     def build(self):
-        return hueLayout()
+        app = hueLayout()
+        app.init_lights()
+        return app
+    
     #Import .kv layout file
     Builder.load_file('hueLayout.kv')
 
-if __name__ == '__main__':
-    
+if __name__ == '__main__':    
     Config.write()
     HueController().run()

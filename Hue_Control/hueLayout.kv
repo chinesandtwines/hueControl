@@ -10,6 +10,10 @@
 <hueLayout>:
     
 ##    colour_loop: colour_loop
+
+    light1_label: light1_label
+    light2_label: light2_label
+    light3_label: light3_label
     
     pwr1_switch: pwr1_switch
     pwr2_switch: pwr2_switch
@@ -53,7 +57,20 @@
             text: 'Master'
             GridLayout:
                 cols: 3
-                rows_minimum: {0:40, 1:30, 2:200}
+                rows_minimum: {0:40, 1:40, 2:30, 3:200}
+
+                Label:
+                    id: light1_label
+                    #text: root.init_lights(light_id = id)
+                    #text: 'empty string'
+                Label:
+                    id: light2_label
+                    #text: root.init_lights(light_id = id)
+                    #text: 'empty string'
+                Label:
+                    id: light3_label
+                    #text: root.init_lights(light_id = id)
+                    #text: 'empty string'
 
                 Switch:
                     id: pwr1_switch

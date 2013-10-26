@@ -6,7 +6,7 @@ myhash = "d9ffaca46d5990ec39501bcdf22ee7a1"
 appname = "dddd"
 light = 1
 
-huehub = "http://192.168.0.100/api/"+ myhash + "/lights/" + str(light)
+huehub = "http://192.168.0.102/api/"+ myhash + "/lights/" + str(light)
 
 reply= requests.get (huehub)
 
@@ -33,7 +33,7 @@ print "colour temp: " + str(a['state']['ct'])
 print
 print "alert:  " + a['state']['alert']
 print "effect:  " + a['state']['effect']
-print "transition time:   " + str(a['state']['transitiontime'])
+#print "transition time:   " + str(a['state']['transitiontime'])
 print "xy:   " + str(a['state']['xy'])
 
 
