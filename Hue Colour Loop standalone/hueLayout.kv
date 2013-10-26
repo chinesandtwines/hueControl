@@ -1,0 +1,56 @@
+<DataPoint>:
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: 50, 50
+            
+    
+
+<HueLayout>:
+##    colorloopwidget: colorloopwidget
+    xlabel: xlabel
+    ylabel: ylabel
+    pt1_x: pt1_x
+    pt1_y: pt1_y
+    pt1: pt1
+    
+    BoxLayout:
+        size: 1000, 500
+        orientation: 'horizontal'
+        RelativeLayout:
+            size: 500, 500
+##            ColorLoopWidget:
+##                xlabel: xlabel
+##                ylabel: ylabel
+##                id: colorloopwidget
+##                size: 500, 500
+
+            DataPoint:
+                id: pt1
+                #pos: 200, 200
+
+        BoxLayout:
+            orientation: 'vertical'
+            Button:
+                text: 'Clear'
+                on_release: root.clear_canvas()
+            Label:
+                id: xlabel
+                text: 'x: '
+                size_hint_y: 0.2
+            Label:
+                id: ylabel
+                text: 'y: '
+                size_hint_y: 0.2
+            Slider:
+                id: pt1_x
+                min: 0
+                max: 500
+                value: 250
+                on_value: root.x1_adj(*args)
+            Slider:
+                id: pt1_y
+                min: 0
+                max: 500
+                value: 250
+                on_value: root.y1_adj(*args)

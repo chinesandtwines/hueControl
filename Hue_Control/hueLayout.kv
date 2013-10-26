@@ -1,15 +1,18 @@
-##<ColourLoop>:
-##    size: 200,200
-##    canvas:
-##        Color:
-##            rgba:0,0,0,1
-##        Rectangle:
-##            size: self.size
-##            pos: self.pos
+<cieBackground>:
+    canvas.before:
+        Color:
+            rgba: 1,0,0,1
+        Rectangle:
+            size: 560, 560
+    Image:
+        source: 'cie_xyz_clear.png'
+        size: 870/2,972/2
 
 <hueLayout>:
     
-##    colour_loop: colour_loop
+    colorloopwidget: colorloopwidget
+    xlabel: xlabel
+    ylabel: ylabel
 
     light1_label: light1_label
     light2_label: light2_label
@@ -213,5 +216,35 @@
                     Label:
                         id: xy_label3
                         text: '(x, y) :'
+
+        TabbedPanelItem:
+            text: 'Colour Loop'
+            BoxLayout:
+                orientation: 'horizontal'
+                #padding: [5, 10, 5, 10]
+                FloatLayout:
+                    cieBackground:
+                    ColorLoopWidget:
+                        xlabel: xlabel
+                        ylabel: ylabel
+                        id: colorloopwidget
+                        size: self.width, self.height
+                    
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: 'Clear'
+                        on_release: root.clear_canvas()
+                        width: 360
+                        size_hint_y: 0.1
+                    Label:
+                        id: xlabel
+                        text: 'x: '
+                        size_hint_y: 0.2
+                    Label:
+                        id: ylabel
+                        text: 'y: '
+                        size_hint_y: 0.2
             
 

@@ -3,9 +3,12 @@ Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '600')
 Config.set('graphics', 'resizable', 0)
 from kivy.app import App
+from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
+from kivy.graphics import Color, Ellipse, Line
+from kivy.uix.image import Image
 
 import simplejson as json
 import requests
@@ -25,12 +28,24 @@ def findOccurences(s, ch):
     return [i for i, letter in enumerate(s) if letter == ch]
 
 char_list = findOccurences(web_pg, '\"')
-ip = web_pg[char_list[-2]+1:char_list[-1]]
-
-
-    
+ip = web_pg[char_list[-2]+1:char_list[-1]]  
 
 #####----- App Logic -----#####
+
+class cieBackground(Image):
+    pass
+
+class ColorLoopWidget(Widget):
+    xlabel = ObjectProperty
+    ylabel = ObjectProperty
+    def on_touch_down(self, touch):
+        with self.canvas:
+            self.canvas.clear()
+            d = 10
+            Ellipse(pos=(touch.x - d/2, touch.y - d/2), size=(d,d))
+            touch.ud['line'] = Line(points=(touch.x, touch.y))
+            self.xlabel.text = 'x: '+str(touch.x)
+            self.ylabel.text = 'y: '+str(touch.y)
 
 class hueLayout(BoxLayout):
     pwr1_switch = ObjectProperty()
@@ -70,6 +85,10 @@ class hueLayout(BoxLayout):
     light1_label = ObjectProperty()
     light2_label = ObjectProperty()
     light3_label = ObjectProperty()
+
+    colorloopwidget = ObjectProperty()
+    xlabel = ObjectProperty()
+    ylabel = ObjectProperty()
 
     def init_lights(self):    
         for light_id in range(1,4):
@@ -196,7 +215,8 @@ class hueLayout(BoxLayout):
             self.ct_label3.text = 'Colour Temp :'+str(a['state']['ct'])
             self.xy_label3.text = '(x, y) :'+str(a['state']['xy'])
         
-        
+    def clear_canvas(self):
+        self.colorloopwidget.canvas.clear()        
 
 class HueController(App):
               
