@@ -32,20 +32,8 @@ ip = web_pg[char_list[-2]+1:char_list[-1]]
 
 #####----- App Logic -----#####
 
-class cieBackground(Image):
+class DataPoint(Widget):
     pass
-
-class ColorLoopWidget(Widget):
-    xlabel = ObjectProperty
-    ylabel = ObjectProperty
-    def on_touch_down(self, touch):
-        with self.canvas:
-            self.canvas.clear()
-            d = 10
-            Ellipse(pos=(touch.x - d/2, touch.y - d/2), size=(d,d))
-            touch.ud['line'] = Line(points=(touch.x, touch.y))
-            self.xlabel.text = 'x: '+str(touch.x)
-            self.ylabel.text = 'y: '+str(touch.y)
 
 class hueLayout(BoxLayout):
     pwr1_switch = ObjectProperty()
@@ -86,9 +74,23 @@ class hueLayout(BoxLayout):
     light2_label = ObjectProperty()
     light3_label = ObjectProperty()
 
-    colorloopwidget = ObjectProperty()
     xlabel = ObjectProperty()
     ylabel = ObjectProperty()
+    pt1_x = ObjectProperty()
+    pt1_y = ObjectProperty()
+    pt1 = ObjectProperty()
+
+    def x1_adj(self, instance, value):
+        x = value
+        y = self.pt1.pos[1]
+        self.pt1.pos = x, y
+        self.xlabel.text = 'x: ' + str(round(x,2))
+
+    def y1_adj(self, instance, value):
+        x = self.pt1.pos[0]
+        y = value
+        self.pt1.pos = x, y
+        self.ylabel.text = 'y: ' + str(round(y,2))
 
     def init_lights(self):    
         for light_id in range(1,4):

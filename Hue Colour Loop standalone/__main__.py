@@ -11,36 +11,19 @@ from kivy.properties import ObjectProperty, NumericProperty,\
 from kivy.graphics import Color, Ellipse, Line
 from random import randint
 from kivy.animation import Animation
+from kivy.uix.image import Image
 
 Builder.load_file('hueLayout.kv')
 
 class DataPoint(Widget):
     pass
 
-class ColorLoopWidget(Widget):
-    xlabel = ObjectProperty
-    ylabel = ObjectProperty
-##    def on_touch_down(self, touch):
-##        with self.canvas:
-##            self.canvas.clear()
-##            d = 10
-##            if touch.x < 500:
-##                Ellipse(pos=(touch.x - d/2, touch.y - d/2), size=(d,d))
-##                touch.ud['line'] = Line(points=(touch.x, touch.y))
-##                self.xlabel.text = 'x: '+str(touch.x)
-##                self.ylabel.text = 'y: '+str(touch.y)
-
 class HueLayout(Widget):
-    colorloopwidget = ObjectProperty()
     xlabel = ObjectProperty()
     ylabel = ObjectProperty()
     pt1_x = ObjectProperty()
     pt1_y = ObjectProperty()
     pt1 = ObjectProperty()
-    
-    def clear_canvas(self):
-        self.xlabel.text = value
-        self.colorloopwidget.canvas.clear()
 
     def x1_adj(self, instance, value):
         x = value

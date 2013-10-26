@@ -1,18 +1,16 @@
-<cieBackground>:
-    canvas.before:
-        Color:
-            rgba: 1,0,0,1
-        Rectangle:
-            size: 560, 560
-    Image:
-        source: 'cie_xyz_clear.png'
-        size: 870/2,972/2
+<DataPoint>:
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: 10, 10 
 
 <hueLayout>:
     
-    colorloopwidget: colorloopwidget
     xlabel: xlabel
     ylabel: ylabel
+    pt1_x: pt1_x
+    pt1_y: pt1_y
+    pt1: pt1
 
     light1_label: light1_label
     light2_label: light2_label
@@ -104,10 +102,10 @@
                 Slider:
                     id: bri1_slider
                     min: 0
-                    max: 255
+                    max: 460
                     orientation: 'vertical'
                     step: 1
-                    value: 150
+                    value: 0
                     on_value: root.bri_adj(*args, light_id=1)
                 Slider:
                     id: bri2_slider
@@ -220,31 +218,38 @@
         TabbedPanelItem:
             text: 'Colour Loop'
             BoxLayout:
+                size: 1000, 600
                 orientation: 'horizontal'
-                #padding: [5, 10, 5, 10]
-                FloatLayout:
-                    cieBackground:
-                    ColorLoopWidget:
-                        xlabel: xlabel
-                        ylabel: ylabel
-                        id: colorloopwidget
-                        size: self.width, self.height
-                    
+                RelativeLayout:
+                    size: 500, 600
+                    Image:
+                        source: 'cie_xyz_clear.png'
+                        size: 870/2,972/2
 
-                BoxLayout:
-                    orientation: 'vertical'
-                    Button:
-                        text: 'Clear'
-                        on_release: root.clear_canvas()
-                        width: 360
-                        size_hint_y: 0.1
+                    DataPoint:
+                        id: pt1
+
+                GridLayout:
+                    cols: 2
                     Label:
                         id: xlabel
                         text: 'x: '
                         size_hint_y: 0.2
+                    Slider:
+                        id: pt1_x
+                        min: 50
+                        max: 256
+                        value: 100
+                        on_value: root.x1_adj(*args)
                     Label:
                         id: ylabel
-                        text: 'y: '
-                        size_hint_y: 0.2
+                        text: 'y: ' + '     - '
+                        size_hint_y: 0.2            
+                    Slider:
+                        id: pt1_y
+                        min: 340
+                        max: 460
+                        value: 415
+                        on_value: root.y1_adj(*args)
             
 

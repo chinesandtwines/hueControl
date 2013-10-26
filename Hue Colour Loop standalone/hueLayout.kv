@@ -2,12 +2,9 @@
     canvas:
         Ellipse:
             pos: self.pos
-            size: 50, 50
-            
-    
+            size: 10, 10    
 
 <HueLayout>:
-##    colorloopwidget: colorloopwidget
     xlabel: xlabel
     ylabel: ylabel
     pt1_x: pt1_x
@@ -19,38 +16,34 @@
         orientation: 'horizontal'
         RelativeLayout:
             size: 500, 500
-##            ColorLoopWidget:
-##                xlabel: xlabel
-##                ylabel: ylabel
-##                id: colorloopwidget
-##                size: 500, 500
+            #cieBackground:
+            Image:
+                source: 'cie_xyz_clear.png'
+                size: 870/2,972/2
 
             DataPoint:
                 id: pt1
                 #pos: 200, 200
 
-        BoxLayout:
-            orientation: 'vertical'
-            Button:
-                text: 'Clear'
-                on_release: root.clear_canvas()
+        GridLayout:
+            cols: 2
             Label:
                 id: xlabel
                 text: 'x: '
                 size_hint_y: 0.2
-            Label:
-                id: ylabel
-                text: 'y: '
-                size_hint_y: 0.2
             Slider:
                 id: pt1_x
-                min: 0
-                max: 500
-                value: 250
+                min: 50
+                max: 256
+                value: 100
                 on_value: root.x1_adj(*args)
+            Label:
+                id: ylabel
+                text: 'y: ' + '     - '
+                size_hint_y: 0.2            
             Slider:
                 id: pt1_y
-                min: 0
-                max: 500
-                value: 250
+                min: 340
+                max: 460
+                value: 415
                 on_value: root.y1_adj(*args)
